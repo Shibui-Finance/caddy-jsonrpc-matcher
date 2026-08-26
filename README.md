@@ -7,13 +7,13 @@ A Caddy module that matches HTTP requests by their JSON-RPC method field. Built 
 The matcher reads the `method` field from JSON-RPC POST request bodies and matches against a configured list. The body is buffered and re-attached so downstream handlers can still read it.
 
 - Only matches POST requests
-- Reads up to 64KB of the body (MCP requests are typically a few KB)
+- Reads up to 128KB of the body (MCP requests are typically a few KB)
 - GET requests, nil bodies, and invalid JSON never match
 - Body is preserved after matching for the reverse proxy
 
 ## Build
 
-Requires Go 1.22+ and xcaddy.
+Requires Go 1.25+ and xcaddy (constrained by Caddy v2.11).
 
 ```bash
 # Run tests

@@ -1,6 +1,6 @@
 module github.com/Shibui-Finance/caddy-jsonrpc-matcher
 
-go 1.26.1
+go 1.25.1
 
 require github.com/caddyserver/caddy/v2 v2.11.4
 
