@@ -21,5 +21,6 @@ jobs:
       - uses: github/codeql-action/init@v4
         with:
           languages: go
+          queries: security-and-quality
       - uses: github/codeql-action/autobuild@v4
       - uses: github/codeql-action/analyze@v4
