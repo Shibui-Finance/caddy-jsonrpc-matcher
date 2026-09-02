@@ -113,3 +113,7 @@ handle /mcp* {
     }]
 }
 ```
+
+## In production
+
+This module powers the rate limiting layer at [Shibui Finance](https://shibui.finance), a Claude-native MCP server for financial data.
