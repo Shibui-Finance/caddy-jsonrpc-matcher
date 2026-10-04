@@ -10,6 +10,19 @@ The module was built for MCP servers where Caddy's rate limiter needs to count t
 
 Source: `github.com/Shibui-Finance/caddy-jsonrpc-matcher`. Go version is constrained by Caddy (currently v2.11).
 
+## Where to start a session
+
+- Start here for the matcher module itself: matching logic, tests, CI and releases.
+- Start in `../gamble-infra` for the Caddy image it is built into (`caddy-mcp/`) and in `../gamble2sql` for the Caddyfile and rate limits that use it. The full repo table and the shared rules are in the workspace CLAUDE.md (`../CLAUDE.md`).
+- Launch in this main checkout, not in a `../caddy-jsonrpc-matcher-<name>` worktree: the memory dir is keyed on the launch path. Create worktrees from the session.
+
+## Working conventions
+
+- **Public repo.** Everything committed here is public: no rate-limit numbers, no hosts, paths or details from the private repos.
+- **Worktrees.** Never switch branches or edit files in the main checkout: it stays on master. Work in `git worktree add -b <branch> ../caddy-jsonrpc-matcher-<name> origin/master`, and remove the worktree and the local branch after the merge (GitHub deletes the remote branch).
+- **Submit** with `/shibui-workflow:submit`. Squash is the only merge method and the PR title becomes the commit subject, so the title is a plain imperative. CI (`make check`) runs on every PR.
+- **Releases** only through the manual Release workflow, and only on the user's go. A release reaches production only when the version pin in `../gamble-infra/caddy-mcp/Dockerfile` is bumped there.
+
 ## Commands
 
 ```bash

@@ -1,0 +1,4 @@
+# Scratch dirs (symlinks to Nextcloud, see the workspace CLAUDE.md).
+# No trailing slash: git sees a symlink as a file, not a dir.
+local_state
+.local
