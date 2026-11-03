@@ -13,7 +13,7 @@ Source: `github.com/Shibui-Finance/caddy-jsonrpc-matcher`. Go version is constra
 ## Where to start a session
 
 - Start here for the matcher module itself: matching logic, tests, CI and releases.
-- Start in `../gamble-infra` for the Caddy image it is built into (`caddy-mcp/`) and in `../gamble2sql` for the Caddyfile and rate limits that use it. The full repo table and the shared rules are in the workspace CLAUDE.md (`../CLAUDE.md`).
+- Start in `../gamble-infra` for the Caddy image it is built into (`caddy-mcp/`) and in `../gamble2sql` for the Caddyfile and rate limits that use it. The full repo table is in the workspace CLAUDE.md (`../CLAUDE.md`, `shibuihq/WORKSPACE.md`), the rules every session shares in `../.claude/CLAUDE.md` (`shibuihq/WORKSPACE_SHARED.md`).
 - Launch in this main checkout, not in a `../caddy-jsonrpc-matcher-<name>` worktree: the memory dir is keyed on the launch path. Create worktrees from the session.
 
 ## Working conventions
