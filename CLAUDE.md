@@ -22,6 +22,7 @@ Source: `github.com/Shibui-Finance/caddy-jsonrpc-matcher`. Go version is constra
 - **Worktrees.** Never switch branches or edit files in the main checkout: it stays on master. Work in `git worktree add -b <branch> ../caddy-jsonrpc-matcher-<name> origin/master`, and remove the worktree and the local branch after the merge (GitHub deletes the remote branch).
 - **Submit** with `/shibui-workflow:submit`. Squash is the only merge method and the PR title becomes the commit subject, so the title is a plain imperative. CI (`make check`) runs on every PR.
 - **Releases** only through the manual Release workflow, and only on the user's go. A release reaches production only when the version pin in `../gamble-infra/caddy-mcp/Dockerfile` is bumped there.
+- **Factory jobs.** A factory job has no Go toolchain, so it runs no checks of its own here: CI's `make check` on the PR is the check. The "Public repo" rule holds for a job's PR title, description, commits and comments too, since all of them are public.
 
 ## Commands
 
