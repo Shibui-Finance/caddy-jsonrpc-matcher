@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := test
 
-# runtime's software factory runs `make init` in every job's clone and in its image build.
+# Setup step for automated environments; the module needs nothing beyond the Go toolchain.
 .PHONY: init
 init:
 	@echo "Nothing to install."
