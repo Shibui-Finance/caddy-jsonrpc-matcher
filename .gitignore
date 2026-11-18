@@ -2,3 +2,6 @@
 # No trailing slash: git sees a symlink as a file, not a dir.
 local_state
 .local
+
+# Worktrees that EnterWorktree creates.
+.claude/worktrees/
