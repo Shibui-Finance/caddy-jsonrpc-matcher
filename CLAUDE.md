@@ -13,13 +13,13 @@ Source: `github.com/Shibui-Finance/caddy-jsonrpc-matcher`. Go version is constra
 ## Where to start a session
 
 - Start here for the matcher module itself: matching logic, tests, CI and releases.
-- Start in `../gamble-infra` for the Caddy image it is built into (`caddy-mcp/`) and in `../gamble2sql` for the Caddyfile and rate limits that use it. The full repo table is in the workspace CLAUDE.md (`../CLAUDE.md`, `shibuihq/WORKSPACE.md`), the rules every session shares in `../.claude/CLAUDE.md` (`shibuihq/WORKSPACE_SHARED.md`).
+- Start in `../gamble-infra` for the Caddy image it is built into (`caddy-mcp/`) and in `../gamble2sql` for the Caddyfile and rate limits that use it. The full repo table and the rules for interactive sessions (merge requests, worktrees) are in the workspace CLAUDE.md (`../CLAUDE.md`, a link to `../shibuihq/WORKSPACE.md`).
 - Launch in this main checkout; once a change is approved, the session moves into a worktree of its own ("Worktrees", below).
 
 ## Working conventions
 
 - **Public repo.** Everything committed here is public: no rate-limit numbers, no hosts, paths or details from the private repos.
-- **Worktrees.** Never switch branches or edit files in the main checkout: it stays on master, and a hook of the shibui-workflow plugin refuses an edit there. The hook sees only Edit, Write and NotebookEdit, so don't write there through Bash either (`sed -i`, a heredoc, a redirect). When the user approves a change, and before the first edit, call `EnterWorktree` with a short kebab-case name for it: Claude Code creates `.claude/worktrees/<name>` on branch `worktree-<name>` from `origin/master` and moves the session there. There is no `make init` step (`init` installs nothing) and no `.worktreeinclude` (the repo has no env files). After the merge, `ExitWorktree` with `remove` deletes the worktree and the local branch (GitHub deletes the remote branch). After the squash merge it refuses at first, since the branch's own commit isn't on master: fetch, check that `git diff HEAD origin/master` is empty, then pass `discard_changes`.
+- **Worktrees.** The flow is in the workspace CLAUDE.md (`../shibuihq/WORKSPACE.md`), "Worktrees": the main checkout stays on master, and every change the user approves goes through `EnterWorktree` and a PR. Here: there is no `make init` step (`init` installs nothing) and no `.worktreeinclude` (the repo has no env files).
 - **Submit** with `/shibui-workflow:submit`. Squash is the only merge method and the PR title becomes the commit subject, so the title is a plain imperative. CI (`make check`) runs on every PR.
 - **Releases** only through the manual Release workflow, and only on the user's go. A release reaches production only when the version pin in `../gamble-infra/caddy-mcp/Dockerfile` is bumped there.
 - **Factory jobs.** A factory job has no Go toolchain, so it runs no checks of its own here: CI's `make check` on the PR is the check. The "Public repo" rule holds for a job's PR title, description, commits and comments too, since all of them are public.
