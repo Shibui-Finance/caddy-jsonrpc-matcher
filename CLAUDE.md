@@ -10,19 +10,12 @@ The module was built for MCP servers where Caddy's rate limiter needs to count t
 
 Source: `github.com/Shibui-Finance/caddy-jsonrpc-matcher`. Go version is constrained by Caddy (currently v2.11).
 
-## Where to start a session
-
-- Start here for the matcher module itself: matching logic, tests, CI and releases.
-- Start in `../gamble-infra` for the Caddy image it is built into (`caddy-mcp/`) and in `../gamble2sql` for the Caddyfile and rate limits that use it. The full repo table and the rules for interactive sessions (merge requests, worktrees) are in the workspace CLAUDE.md (`../CLAUDE.md`, a link to `../shibuihq/WORKSPACE.md`).
-- Launch in this main checkout; once a change is approved, the session moves into a worktree of its own ("Worktrees", below).
-
 ## Working conventions
 
-- **Public repo.** Everything committed here is public: no rate-limit numbers, no hosts, paths or details from the private repos.
-- **Worktrees.** The flow is in the workspace CLAUDE.md (`../shibuihq/WORKSPACE.md`), "Worktrees": the main checkout stays on master, and every change the user approves goes through `EnterWorktree` and a PR. Here: there is no `make init` step (`init` installs nothing) and no `.worktreeinclude` (the repo has no env files).
-- **Submit** with `/shibui-workflow:submit`. Squash is the only merge method and the PR title becomes the commit subject, so the title is a plain imperative. CI (`make check`) runs on every PR.
-- **Releases** only through the manual Release workflow, and only on the user's go. A release reaches production only when the version pin in `../gamble-infra/caddy-mcp/Dockerfile` is bumped there.
-- **Factory jobs.** A factory job has no Go toolchain, so it runs no checks of its own here: CI's `make check` on the PR is the check. The "Public repo" rule holds for a job's PR title, description, commits and comments too, since all of them are public.
+- **Public repo.** Everything committed here is public, PR titles, descriptions, commit messages and comments included: no details of the deployments that use the module (hosts, rate-limit numbers, internal paths or config).
+- **Pull requests.** Squash is the only merge method and the PR title becomes the commit subject, so the title is a plain imperative. CI (`make check`) runs on every PR.
+- **Without a Go toolchain** (a headless job, for instance), run no checks locally: CI's `make check` on the PR is the check.
+- **Releases** only through the manual Release workflow, and only on the user's go.
 
 ## Commands
 
@@ -70,7 +63,3 @@ Multiple methods: `jsonrpc_method tools/call resources/write`
 
 - CI runs `make check` on push/PR to master (`.github/workflows/ci.yml`).
 - Release is manual via `workflow_dispatch` with a bump type (patch/minor/major). It computes the next semver tag and creates a GitHub Release (`.github/workflows/release.yml`).
-
-## Deployed at
-
-Used by the Shibui Finance MCP server (`mcp.shibui.finance`). The Caddy build is in `gamble-infra/caddy-mcp/`, the rate limit config in `gamble2sql/deploy/Caddyfile`.
